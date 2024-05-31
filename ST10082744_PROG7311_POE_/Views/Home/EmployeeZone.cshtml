@@ -1,0 +1,94 @@
+﻿@model List<ST10082744_PROG7311_POE_.Areas.Identity.Data.ST10082744_PROG7311_POE_User>
+
+@{
+    ViewData["Title"] = "Employee Zone";
+}
+<style>
+    body {
+        background-color: #ccffe6;
+    }
+
+    .btn-gradient-green {
+        background: linear-gradient(to top, #004d00, #00cc00);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-gradient-green:hover {
+            background: linear-gradient(to top, #004d00, #00cc00);
+            color: #fff;
+        }
+
+    .btn-danger {
+        background: linear-gradient(to top, #cc0000, #ff4d4d);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(to top, #cc0000, #ff4d4d);
+            color: #fff;
+        }
+
+    .form-control {
+        width: 200px; 
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn-container {
+        margin-top: 20px;
+    }
+</style>
+<h2>List of all the Farmers</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    <a href="@Url.Action("ProductList", "Home", new { userId = user.Id })" class="btn btn-gradient-green">View Products</a>
+                    <a href="@Url.Action("EditProfile", "Home", new { userId = user.Id })" class="btn btn-gradient-green">Profile</a>
+                    <form asp-action="DeleteUser" method="post" style="display:inline;">
+                        <input type="hidden" name="userId" value="@user.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Add New User</h2>
+
+<div class="form-container">
+    <form asp-action="AddUser" method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-gradient-green">Add User</button>
+        </div>
+    </form>
+</div>

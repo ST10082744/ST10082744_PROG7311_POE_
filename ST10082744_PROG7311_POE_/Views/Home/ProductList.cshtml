@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ST10082744_PROG7311_POE_.Models.Product>
+<style>
+    body {
+        background-color: #ccffe6;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to top, #004d00, #00cc00);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(to top, #004d00, #00cc00);
+            color: #fff;
+        }
+
+    .btn-danger {
+        background: linear-gradient(to top, #cc0000, #ff4d4d);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(to top, #cc0000, #ff4d4d);
+            color: #fff;
+        }
+</style>
+
+<h2>Product List</h2>
+
+
+<form method="get" asp-action="ProductList">
+    <div>
+        <label>Start Date:</label>
+        <input type="date" name="startDate" value="@ViewContext.HttpContext.Request.Query["startDate"]" />
+        <label>End Date:</label>
+        <input type="date" name="endDate" value="@ViewContext.HttpContext.Request.Query["endDate"]" />
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+
+<form method="get" asp-action="ProductList">
+    <div>
+        <label>Category:</label>
+        <input type="text" name="category" value="@ViewContext.HttpContext.Request.Query["category"]" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>
+                <a asp-action="ProductList" asp-route-sortOrder="@ViewData["ProductTypeSortParm"]"
+                   asp-route-startDate="@ViewContext.HttpContext.Request.Query["startDate"]"
+                   asp-route-endDate="@ViewContext.HttpContext.Request.Query["endDate"]"
+                   asp-route-category="@ViewContext.HttpContext.Request.Query["category"]">Category</a>
+            </th>
+            <th>Production Date</th>
+            @if (User.IsInRole("Farmer"))
+            {
+                <th>Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.ProductName</td>
+                <td>@product.Category</td>
+                <td>@product.ProductionDate.ToString("yyyy-MM-dd")</td>
+                @if (User.IsInRole("Farmer"))
+                {
+                    <td>
+                        <a asp-action="EditProduct" asp-route-id="@product.Id" class="btn btn-primary">Edit</a>
+                        <form asp-action="DeleteProduct" asp-route-id="@product.Id" method="post" style="display:inline">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<form id="deleteForm" asp-action="DeleteProduct" asp-controller="Home" method="post">
+    <input type="hidden" id="productId" name="id" />
+</form>
+<script>
+    function confirmDelete(productId) {
+        if (confirm('Are you sure you want to delete this product?')) {
+            document.getElementById('productId').value = productId;
+            document.getElementById('deleteForm').submit();
+        }
+    }
+</script>

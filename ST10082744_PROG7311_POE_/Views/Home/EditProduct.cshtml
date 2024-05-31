@@ -1,0 +1,57 @@
+﻿@model ST10082744_PROG7311_POE_.Models.Product
+<style>
+    body {
+        background-color: #ccffe6;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to top, #004d00, #00cc00);
+        color: #fff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(to top, #004d00, #00cc00);
+            color: #fff;
+        }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        width: 200px;
+    }
+
+    .btn-container {
+        margin-top: 20px;
+    }
+</style>
+<h2>Edit Product</h2>
+
+<div class="form-container">
+    <form asp-action="EditProduct" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="ProductName"></label>
+            <input asp-for="ProductName" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Category"></label>
+            <input asp-for="Category" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductionDate"></label>
+            <input asp-for="ProductionDate" type="date" class="form-control" />
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>

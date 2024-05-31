@@ -1,0 +1,59 @@
+﻿@model ST10082744_PROG7311_POE_.Models.Product
+
+<style>
+    body {
+        background-color: #ccffe6;
+    }
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(to top, #004d00, #00cc00);
+        color: #fff;
+        border: none;
+        margin-top: 10px; 
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(to top, #004d00, #00cc00);
+            color: #fff;
+        }
+</style>
+
+<h2>Add Product</h2>
+
+<div class="form-container">
+    <form asp-action="SaveProduct" method="post">
+        <div class="form-group">
+            <label asp-for="ProductName">Product Name:</label>
+            <input asp-for="ProductName" class="form-control" required>
+            <span asp-validation-for="ProductName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Category">Category:</label>
+            <input asp-for="Category" class="form-control" required>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductionDate">Production Date:</label>
+            <input asp-for="ProductionDate" class="form-control" required>
+            <span asp-validation-for="ProductionDate" class="text-danger"></span>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </div>
+    </form>
+</div>
